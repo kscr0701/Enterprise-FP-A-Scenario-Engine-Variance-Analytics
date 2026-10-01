@@ -1,0 +1,1160 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="2025.2" RunE2="T">
+  <Nodes>
+    <Node ToolID="23">
+      <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+        <Position x="654" y="198" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <FormulaFields>
+            <FormulaField expression="IF IsNull([Revenue]) OR [Revenue] == 0&#xA;THEN 0 &#xA;ELSE (ToNumber([Operating_Income]) / [Revenue])*100&#xA;ENDIF" field="Operating_Margin_Pct" size="8" type="Double" enabled="true" />
+            <FormulaField expression="Round(([Net_Income] / [Revenue])*100,2)" field="Net_Margin_Pct" size="8" type="Double" enabled="true" />
+            <FormulaField expression="DateTimeYear([Date])" field="Fiscal_Year" size="4" type="Int32" enabled="true" />
+            <FormulaField expression="'Q' + ToString(DateTimeQuarter([Date]))" field="Fiscal_Quarter" size="1073741823" type="V_WString" enabled="true" />
+          </FormulaFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText>Operating_Margin_Pct = IF IsNull([Revenue]) OR [Revenue] == 0
+THEN 0 
+ELSE (ToNu...</DefaultAnnotationText>
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Company_ID" size="5" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+            <Field name="Date" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Date" />
+            <Field name="Industry_Sector" size="13" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+            <Field name="Total_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="Total_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="Current_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="Current_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="Net_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="Revenue" source="Formula: ToNumber(REGEX_Replace([Revenue],'[$,]',''))" type="Double" />
+            <Field name="Operating_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="Cash_Flow" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="Debt_Equity_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="Return_on_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="Working_Capital_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="Stock_Price_Close" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="Volatility_Index" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="GDP_Growth_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="Interest_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="Inflation_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+            <Field name="Financial_Risk_Label" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Byte" />
+            <Field name="Operating_Margin_Pct" source="Formula: IF IsNull([Revenue]) OR [Revenue] == 0&#xA;THEN 0 &#xA;ELSE (ToNumber([Operating_Income]) / [Revenue])*100&#xA;ENDIF" type="Double" />
+            <Field name="Net_Margin_Pct" source="Formula: Round(([Net_Income] / [Revenue])*100,2)" type="Double" />
+            <Field name="Fiscal_Year" source="Formula: DateTimeYear([Date])" type="Int32" />
+            <Field name="Fiscal_Quarter" size="1073741823" source="Formula: 'Q' + ToString(DateTimeQuarter([Date]))" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+    </Node>
+    <Node ToolID="24">
+      <GuiSettings Plugin="AlteryxSpatialPluginsGui.Summarize.Summarize">
+        <Position x="810" y="162" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <SummarizeFields>
+            <SummarizeField field="Industry_Sector" action="GroupBy" rename="Industry_Sector" />
+            <SummarizeField field="Fiscal_Year" action="GroupBy" rename="Fiscal_Year" />
+            <SummarizeField field="Revenue" action="Sum" rename="Sum_Revenue" />
+            <SummarizeField field="Operating_Income" action="Sum" rename="Sum_Operating_Income" />
+            <SummarizeField field="Operating_Margin_Pct" action="Avg" rename="Avg_Operating_Margin_Pct" />
+            <SummarizeField field="Debt_Equity_Ratio" action="Avg" rename="Avg_Debt_Equity_Ratio" />
+            <SummarizeField field="GDP_Growth_Rate" action="Avg" rename="Avg_GDP_Growth_Rate" />
+            <SummarizeField field="Net_Margin_Pct" action="Avg" rename="Avg_Net_Margin_Pct" />
+            <SummarizeField field="Net_Income" action="Sum" rename="Sum_Net_Income" />
+            <SummarizeField field="Inflation_Rate" action="Avg" rename="Avg_Inflation_Rate" />
+          </SummarizeFields>
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+        <MetaInfo connection="Output">
+          <RecordInfo>
+            <Field name="Industry_Sector" size="13" source="Summarize: GroupBy - Industry_Sector" type="String" />
+            <Field name="Fiscal_Year" source="Summarize: GroupBy - Fiscal_Year" type="Int32" />
+            <Field name="Sum_Revenue" source="Summarize: Sum - Revenue" type="Double" />
+            <Field name="Sum_Operating_Income" source="Summarize: Sum - Operating_Income" type="Double" />
+            <Field name="Avg_Operating_Margin_Pct" source="Summarize: Avg - Operating_Margin_Pct" type="Double" />
+            <Field name="Avg_Debt_Equity_Ratio" source="Summarize: Avg - Debt_Equity_Ratio" type="Double" />
+            <Field name="Avg_GDP_Growth_Rate" source="Summarize: Avg - GDP_Growth_Rate" type="Double" />
+            <Field name="Avg_Net_Margin_Pct" source="Summarize: Avg - Net_Margin_Pct" type="Double" />
+            <Field name="Sum_Net_Income" source="Summarize: Sum - Net_Income" type="Double" />
+            <Field name="Avg_Inflation_Rate" source="Summarize: Avg - Inflation_Rate" type="Double" />
+          </RecordInfo>
+        </MetaInfo>
+      </Properties>
+      <EngineSettings EngineDll="AlteryxSpatialPluginsEngine.dll" EngineDllEntryPoint="AlteryxSummarize" />
+    </Node>
+    <Node ToolID="32">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="44">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="306" y="6" width="504" height="156" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text><![CDATA[Workflow Title: Enterprise FP&A Scenario Engine
+
+Author: Karthik S
+
+Purpose: Automated GL cleansing, sector margin benchmarking and what-if revenue growth modelling.
+
+]]></Text>
+          <Font name="Arial" size="9.75" style="0" />
+          <TextColor name="Black" />
+          <FillColor name="White" />
+          <Shape shape="0" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="43">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="914" y="230" width="209" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Join &amp; Formula Column</Caption>
+          <Style TextColor="#314c4a" FillColor="#ff80c0" BorderColor="#314c4a" Transparency="25" Margin="100" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Join &amp; Formula Column</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="26">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Join.Join">
+            <Position x="1014" y="354" />
+          </GuiSettings>
+          <Properties>
+            <Configuration joinByRecordPos="False">
+              <JoinInfo connection="Left">
+                <Field field="Industry_Sector" />
+                <Field field="Fiscal_Year" />
+              </JoinInfo>
+              <JoinInfo connection="Right">
+                <Field field="Industry_Sector" />
+                <Field field="Fiscal_Year" />
+              </JoinInfo>
+              <SelectConfiguration>
+                <Configuration outputConnection="Join">
+                  <OrderChanged value="False" />
+                  <CommaDecimal value="False" />
+                  <SelectFields>
+                    <SelectField field="Right_Industry_Sector" selected="True" rename="Right_Industry_Sector" input="Right_" />
+                    <SelectField field="Right_Fiscal_Year" selected="True" rename="Right_Fiscal_Year" input="Right_" />
+                    <SelectField field="*Unknown" selected="True" />
+                  </SelectFields>
+                </Configuration>
+              </SelectConfiguration>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Left">
+              <RecordInfo>
+                <Field name="Company_ID" size="5" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Date" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Date" />
+                <Field name="Industry_Sector" size="13" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Total_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Total_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Net_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Revenue" source="Formula: ToNumber(REGEX_Replace([Revenue],'[$,]',''))" type="Double" />
+                <Field name="Operating_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Cash_Flow" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Debt_Equity_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Return_on_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Working_Capital_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Stock_Price_Close" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Volatility_Index" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="GDP_Growth_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Interest_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Inflation_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Financial_Risk_Label" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Byte" />
+                <Field name="Operating_Margin_Pct" source="Formula: IF IsNull([Revenue]) OR [Revenue] == 0&#xA;THEN 0 &#xA;ELSE (ToNumber([Operating_Income]) / [Revenue])*100&#xA;ENDIF" type="Double" />
+                <Field name="Net_Margin_Pct" source="Formula: Round(([Net_Income] / [Revenue])*100,2)" type="Double" />
+                <Field name="Fiscal_Year" source="Formula: DateTimeYear([Date])" type="Int32" />
+                <Field name="Fiscal_Quarter" size="1073741823" source="Formula: 'Q' + ToString(DateTimeQuarter([Date]))" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Join">
+              <RecordInfo>
+                <Field name="Company_ID" size="5" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Date" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Date" />
+                <Field name="Industry_Sector" size="13" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Total_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Total_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Net_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Revenue" source="Formula: ToNumber(REGEX_Replace([Revenue],'[$,]',''))" type="Double" />
+                <Field name="Operating_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Cash_Flow" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Debt_Equity_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Return_on_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Working_Capital_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Stock_Price_Close" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Volatility_Index" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="GDP_Growth_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Interest_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Inflation_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Financial_Risk_Label" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Byte" />
+                <Field name="Operating_Margin_Pct" source="Formula: IF IsNull([Revenue]) OR [Revenue] == 0&#xA;THEN 0 &#xA;ELSE (ToNumber([Operating_Income]) / [Revenue])*100&#xA;ENDIF" type="Double" />
+                <Field name="Net_Margin_Pct" source="Formula: Round(([Net_Income] / [Revenue])*100,2)" type="Double" />
+                <Field name="Fiscal_Year" source="Formula: DateTimeYear([Date])" type="Int32" />
+                <Field name="Fiscal_Quarter" size="1073741823" source="Formula: 'Q' + ToString(DateTimeQuarter([Date]))" type="V_WString" />
+                <Field name="Right_Industry_Sector" size="13" source="Summarize: GroupBy - Industry_Sector" type="String" />
+                <Field name="Right_Fiscal_Year" source="Summarize: GroupBy - Fiscal_Year" type="Int32" />
+                <Field name="Sum_Revenue" source="Summarize: Sum - Revenue" type="Double" />
+                <Field name="Sum_Operating_Income" source="Summarize: Sum - Operating_Income" type="Double" />
+                <Field name="Avg_Operating_Margin_Pct" source="Summarize: Avg - Operating_Margin_Pct" type="Double" />
+                <Field name="Avg_Debt_Equity_Ratio" source="Summarize: Avg - Debt_Equity_Ratio" type="Double" />
+                <Field name="Avg_GDP_Growth_Rate" source="Summarize: Avg - GDP_Growth_Rate" type="Double" />
+                <Field name="Avg_Net_Margin_Pct" source="Summarize: Avg - Net_Margin_Pct" type="Double" />
+                <Field name="Sum_Net_Income" source="Summarize: Sum - Net_Income" type="Double" />
+                <Field name="Avg_Inflation_Rate" source="Summarize: Avg - Inflation_Rate" type="Double" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Right">
+              <RecordInfo>
+                <Field name="Industry_Sector" size="13" source="Summarize: GroupBy - Industry_Sector" type="String" />
+                <Field name="Fiscal_Year" source="Summarize: GroupBy - Fiscal_Year" type="Int32" />
+                <Field name="Sum_Revenue" source="Summarize: Sum - Revenue" type="Double" />
+                <Field name="Sum_Operating_Income" source="Summarize: Sum - Operating_Income" type="Double" />
+                <Field name="Avg_Operating_Margin_Pct" source="Summarize: Avg - Operating_Margin_Pct" type="Double" />
+                <Field name="Avg_Debt_Equity_Ratio" source="Summarize: Avg - Debt_Equity_Ratio" type="Double" />
+                <Field name="Avg_GDP_Growth_Rate" source="Summarize: Avg - GDP_Growth_Rate" type="Double" />
+                <Field name="Avg_Net_Margin_Pct" source="Summarize: Avg - Net_Margin_Pct" type="Double" />
+                <Field name="Sum_Net_Income" source="Summarize: Sum - Net_Income" type="Double" />
+                <Field name="Avg_Inflation_Rate" source="Summarize: Avg - Inflation_Rate" type="Double" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxJoin" />
+        </Node>
+        <Node ToolID="27">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="1074" y="378" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="[Operating_Margin_Pct] - [Avg_Operating_Margin_Pct]" field="OpMargin_Variance_vs_Sector" size="8" type="Double" enabled="true" />
+                <FormulaField expression="[Net_Margin_Pct] - [Avg_Net_Margin_Pct]" field="Net_Margin_Variance" size="8" type="Double" enabled="true" />
+                <FormulaField expression="IF IsNull([Sum_Revenue]) OR [Sum_Revenue] == 0&#xA;THEN 0 &#xA;ELSE ([Revenue] / [Sum_Revenue])*100&#xA;ENDIF" field="Revenue_Pct_Of_Sector" size="8" type="Double" enabled="true" />
+                <FormulaField expression="IF [OpMargin_Variance_vs_Sector] &gt;=2 THEN 'Outperforming'&#xA;ELSEIF [OpMargin_Variance_vs_Sector] &lt;= -2 THEN 'Underperforming'&#xA;ELSE 'On Target'&#xA;ENDIF" field="Variance_Status" size="1073741823" type="V_WString" enabled="true" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>OpMargin_Variance_vs_Sector = [Operating_Margin_Pct] - [Avg_Operating_Margin_Pct...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Company_ID" size="5" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Date" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Date" />
+                <Field name="Industry_Sector" size="13" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Total_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Total_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Net_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Revenue" source="Formula: ToNumber(REGEX_Replace([Revenue],'[$,]',''))" type="Double" />
+                <Field name="Operating_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Cash_Flow" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Debt_Equity_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Return_on_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Working_Capital_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Stock_Price_Close" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Volatility_Index" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="GDP_Growth_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Interest_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Inflation_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Financial_Risk_Label" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Byte" />
+                <Field name="Operating_Margin_Pct" source="Formula: IF IsNull([Revenue]) OR [Revenue] == 0&#xA;THEN 0 &#xA;ELSE (ToNumber([Operating_Income]) / [Revenue])*100&#xA;ENDIF" type="Double" />
+                <Field name="Net_Margin_Pct" source="Formula: Round(([Net_Income] / [Revenue])*100,2)" type="Double" />
+                <Field name="Fiscal_Year" source="Formula: DateTimeYear([Date])" type="Int32" />
+                <Field name="Fiscal_Quarter" size="1073741823" source="Formula: 'Q' + ToString(DateTimeQuarter([Date]))" type="V_WString" />
+                <Field name="Right_Industry_Sector" size="13" source="Summarize: GroupBy - Industry_Sector" type="String" />
+                <Field name="Right_Fiscal_Year" source="Summarize: GroupBy - Fiscal_Year" type="Int32" />
+                <Field name="Sum_Revenue" source="Summarize: Sum - Revenue" type="Double" />
+                <Field name="Sum_Operating_Income" source="Summarize: Sum - Operating_Income" type="Double" />
+                <Field name="Avg_Operating_Margin_Pct" source="Summarize: Avg - Operating_Margin_Pct" type="Double" />
+                <Field name="Avg_Debt_Equity_Ratio" source="Summarize: Avg - Debt_Equity_Ratio" type="Double" />
+                <Field name="Avg_GDP_Growth_Rate" source="Summarize: Avg - GDP_Growth_Rate" type="Double" />
+                <Field name="Avg_Net_Margin_Pct" source="Summarize: Avg - Net_Margin_Pct" type="Double" />
+                <Field name="Sum_Net_Income" source="Summarize: Sum - Net_Income" type="Double" />
+                <Field name="Avg_Inflation_Rate" source="Summarize: Avg - Inflation_Rate" type="Double" />
+                <Field name="OpMargin_Variance_vs_Sector" source="Formula: [Operating_Margin_Pct] - [Avg_Operating_Margin_Pct]" type="Double" />
+                <Field name="Net_Margin_Variance" source="Formula: [Net_Margin_Pct] - [Avg_Net_Margin_Pct]" type="Double" />
+                <Field name="Revenue_Pct_Of_Sector" source="Formula: IF IsNull([Sum_Revenue]) OR [Sum_Revenue] == 0&#xA;THEN 0 &#xA;ELSE ([Revenue] / [Sum_Revenue])*100&#xA;ENDIF" type="Double" />
+                <Field name="Variance_Status" size="1073741823" source="Formula: IF [OpMargin_Variance_vs_Sector] &gt;=2 THEN 'Outperforming'&#xA;ELSEIF [OpMargin_Variance_vs_Sector] &lt;= -2 THEN 'Underperforming'&#xA;ELSE 'On Target'&#xA;ENDIF" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="28">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="1182" y="378" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="[Revenue]*1.05" field="Scenario_Revenue" size="8" type="Double" enabled="true" />
+                <FormulaField expression="([Revenue] - [Operating_Income]) * (1+([Avg_Inflation_Rate]/100))" field="Scenario_Opex" size="8" type="Double" enabled="true" />
+                <FormulaField expression="[Scenario_Revenue] - [Scenario_Opex]" field="Scenario_Operating_Income" size="8" type="Double" enabled="true" />
+                <FormulaField expression="[Scenario_Operating_Income] - [Operating_Income]" field="Scenario_Vs_Actual_Income_Diff" size="8" type="Double" enabled="true" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Scenario_Revenue = [Revenue]*1.05
+Scenario_Opex = ([Revenue] - [Operating_Income...</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Company_ID" size="5" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Date" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Date" />
+                <Field name="Industry_Sector" size="13" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Total_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Total_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Net_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Revenue" source="Formula: ToNumber(REGEX_Replace([Revenue],'[$,]',''))" type="Double" />
+                <Field name="Operating_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Cash_Flow" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Debt_Equity_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Return_on_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Working_Capital_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Stock_Price_Close" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Volatility_Index" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="GDP_Growth_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Interest_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Inflation_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Financial_Risk_Label" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Byte" />
+                <Field name="Operating_Margin_Pct" source="Formula: IF IsNull([Revenue]) OR [Revenue] == 0&#xA;THEN 0 &#xA;ELSE (ToNumber([Operating_Income]) / [Revenue])*100&#xA;ENDIF" type="Double" />
+                <Field name="Net_Margin_Pct" source="Formula: Round(([Net_Income] / [Revenue])*100,2)" type="Double" />
+                <Field name="Fiscal_Year" source="Formula: DateTimeYear([Date])" type="Int32" />
+                <Field name="Fiscal_Quarter" size="1073741823" source="Formula: 'Q' + ToString(DateTimeQuarter([Date]))" type="V_WString" />
+                <Field name="Right_Industry_Sector" size="13" source="Summarize: GroupBy - Industry_Sector" type="String" />
+                <Field name="Right_Fiscal_Year" source="Summarize: GroupBy - Fiscal_Year" type="Int32" />
+                <Field name="Sum_Revenue" source="Summarize: Sum - Revenue" type="Double" />
+                <Field name="Sum_Operating_Income" source="Summarize: Sum - Operating_Income" type="Double" />
+                <Field name="Avg_Operating_Margin_Pct" source="Summarize: Avg - Operating_Margin_Pct" type="Double" />
+                <Field name="Avg_Debt_Equity_Ratio" source="Summarize: Avg - Debt_Equity_Ratio" type="Double" />
+                <Field name="Avg_GDP_Growth_Rate" source="Summarize: Avg - GDP_Growth_Rate" type="Double" />
+                <Field name="Avg_Net_Margin_Pct" source="Summarize: Avg - Net_Margin_Pct" type="Double" />
+                <Field name="Sum_Net_Income" source="Summarize: Sum - Net_Income" type="Double" />
+                <Field name="Avg_Inflation_Rate" source="Summarize: Avg - Inflation_Rate" type="Double" />
+                <Field name="OpMargin_Variance_vs_Sector" source="Formula: [Operating_Margin_Pct] - [Avg_Operating_Margin_Pct]" type="Double" />
+                <Field name="Net_Margin_Variance" source="Formula: [Net_Margin_Pct] - [Avg_Net_Margin_Pct]" type="Double" />
+                <Field name="Revenue_Pct_Of_Sector" source="Formula: IF IsNull([Sum_Revenue]) OR [Sum_Revenue] == 0&#xA;THEN 0 &#xA;ELSE ([Revenue] / [Sum_Revenue])*100&#xA;ENDIF" type="Double" />
+                <Field name="Variance_Status" size="1073741823" source="Formula: IF [OpMargin_Variance_vs_Sector] &gt;=2 THEN 'Outperforming'&#xA;ELSEIF [OpMargin_Variance_vs_Sector] &lt;= -2 THEN 'Underperforming'&#xA;ELSE 'On Target'&#xA;ENDIF" type="V_WString" />
+                <Field name="Scenario_Revenue" source="Formula: [Revenue]*1.05" type="Double" />
+                <Field name="Scenario_Opex" source="Formula: ([Revenue] - [Operating_Income]) * (1+([Avg_Inflation_Rate]/100))" type="Double" />
+                <Field name="Scenario_Operating_Income" source="Formula: [Scenario_Revenue] - [Scenario_Opex]" type="Double" />
+                <Field name="Scenario_Vs_Actual_Income_Diff" source="Formula: [Scenario_Operating_Income] - [Operating_Income]" type="Double" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="39">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="977" y="65" width="178" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Growth Multiplier</Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Growth Multiplier</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="36">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Action.Action">
+            <Position x="1002" y="150" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Update Value</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="35">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+            <Position x="1074" y="114" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <AnnotationText>Numeric Up Down (35)</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="41">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="314" y="218" width="224" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Data Ingestion &amp; Cleaning</Caption>
+          <Style TextColor="#ffffff" FillColor="#000000" BorderColor="#314c4a" Transparency="25" Margin="100" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText>Data Ingestion &amp; Cleaning</AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="16">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileInput.DbFileInput">
+            <Position x="414" y="354" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Passwords />
+              <File OutputFileName="" RecordLimit="" SearchSubDirs="False" FileFormat="0">C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv</File>
+              <FormatSpecificOptions>
+                <CodePage>28591</CodePage>
+                <Delimeter>,</Delimeter>
+                <IgnoreErrors>False</IgnoreErrors>
+                <FieldLen>254</FieldLen>
+                <AllowShareWrite>False</AllowShareWrite>
+                <HeaderRow>True</HeaderRow>
+                <IgnoreQuotes>DoubleQuotes</IgnoreQuotes>
+                <ImportLine>1</ImportLine>
+              </FormatSpecificOptions>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Corporate_Financial_Risk_Assessment_Data.csv</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <Dependencies>
+              <Implicit />
+            </Dependencies>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Company_ID" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Date" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Industry_Sector" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Total_Assets" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Total_Liabilities" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Current_Assets" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Current_Liabilities" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Net_Income" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Revenue" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Operating_Income" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Cash_Flow" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Debt_Equity_Ratio" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Return_on_Assets" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Working_Capital_Ratio" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Stock_Price_Close" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Volatility_Index" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="GDP_Growth_Rate" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Interest_Rate" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Inflation_Rate" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Financial_Risk_Label" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileInput" />
+        </Node>
+        <Node ToolID="18">
+          <GuiSettings>
+            <Position x="522" y="342" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Value name="Check Box (135)">False</Value>
+              <Value name="Check Box (136)">False</Value>
+              <Value name="List Box (11)">"Company_ID","Date","Industry_Sector","Total_Assets","Total_Liabilities","Current_Assets","Current_Liabilities","Net_Income","Revenue","Operating_Income","Cash_Flow","Debt_Equity_Ratio","Return_on_Assets","Working_Capital_Ratio","Stock_Price_Close","Volatility_Index","GDP_Growth_Rate","Interest_Rate","Inflation_Rate","Financial_Risk_Label"</Value>
+              <Value name="Check Box (84)">True</Value>
+              <Value name="Check Box (117)">True</Value>
+              <Value name="Check Box (15)">True</Value>
+              <Value name="Check Box (109)">True</Value>
+              <Value name="Check Box (122)">False</Value>
+              <Value name="Check Box (53)">False</Value>
+              <Value name="Check Box (58)">False</Value>
+              <Value name="Check Box (70)">False</Value>
+              <Value name="Check Box (77)">False</Value>
+              <Value name="Drop Down (81)">upper</Value>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <Dependencies>
+              <Implicit />
+            </Dependencies>
+            <MetaInfo connection="Output26">
+              <RecordInfo>
+                <Field name="Company_ID" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Date" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Industry_Sector" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Total_Assets" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Total_Liabilities" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Current_Assets" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Current_Liabilities" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Net_Income" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Revenue" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Operating_Income" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Cash_Flow" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Debt_Equity_Ratio" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Return_on_Assets" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Working_Capital_Ratio" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Stock_Price_Close" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Volatility_Index" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="GDP_Growth_Rate" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Interest_Rate" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Inflation_Rate" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Financial_Risk_Label" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings Macro="Cleanse.yxmc" />
+        </Node>
+        <Node ToolID="19">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Formula.Formula">
+            <Position x="642" y="342" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <FormulaFields>
+                <FormulaField expression="ToNumber(REGEX_Replace([Revenue],'[$,]',''))" field="Revenue" size="254" type="V_String" enabled="true" />
+              </FormulaFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText><![CDATA[Revenue = ToNumber(REGEX_Replace([Revenue],'[$,]',''))
+]]></DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Company_ID" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Date" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Industry_Sector" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Total_Assets" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Total_Liabilities" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Current_Assets" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Current_Liabilities" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Net_Income" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Revenue" size="254" source="Formula: ToNumber(REGEX_Replace([Revenue],'[$,]',''))" type="V_String" />
+                <Field name="Operating_Income" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Cash_Flow" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Debt_Equity_Ratio" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Return_on_Assets" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Working_Capital_Ratio" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Stock_Price_Close" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Volatility_Index" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="GDP_Growth_Rate" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Interest_Rate" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Inflation_Rate" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+                <Field name="Financial_Risk_Label" size="254" source="File: C:\Users\kscr0\OneDrive\Desktop\zipfiles\archivee\Corporate_Financial_Risk_Assessment_Data.csv" type="V_String" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFormula" />
+        </Node>
+        <Node ToolID="21">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AutoField.AutoField">
+            <Position x="642" y="486" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Fields>
+                <Field field="Company_ID" selected="True" />
+                <Field field="Date" selected="True" />
+                <Field field="Industry_Sector" selected="True" />
+                <Field field="Total_Assets" selected="True" />
+                <Field field="Total_Liabilities" selected="True" />
+                <Field field="Current_Assets" selected="True" />
+                <Field field="Current_Liabilities" selected="True" />
+                <Field field="Net_Income" selected="True" />
+                <Field field="Revenue" selected="True" />
+                <Field field="Operating_Income" selected="True" />
+                <Field field="Cash_Flow" selected="True" />
+                <Field field="Debt_Equity_Ratio" selected="True" />
+                <Field field="Return_on_Assets" selected="True" />
+                <Field field="Working_Capital_Ratio" selected="True" />
+                <Field field="Stock_Price_Close" selected="True" />
+                <Field field="Volatility_Index" selected="True" />
+                <Field field="GDP_Growth_Rate" selected="True" />
+                <Field field="Interest_Rate" selected="True" />
+                <Field field="Inflation_Rate" selected="True" />
+                <Field field="Financial_Risk_Label" selected="True" />
+                <Field field="*Unknown" selected="True" />
+              </Fields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Company_ID" size="5" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Date" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Date" />
+                <Field name="Industry_Sector" size="13" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Total_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Total_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Net_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Revenue" source="Formula: ToNumber(REGEX_Replace([Revenue],'[$,]',''))" type="Double" />
+                <Field name="Operating_Income" size="18" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Cash_Flow" size="19" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="V_String" />
+                <Field name="Debt_Equity_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Return_on_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Working_Capital_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Stock_Price_Close" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Volatility_Index" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="GDP_Growth_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Interest_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Inflation_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Financial_Risk_Label" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxAutoField" />
+        </Node>
+        <Node ToolID="25">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.AlteryxSelect.AlteryxSelect">
+            <Position x="726" y="498" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <OrderChanged value="False" />
+              <CommaDecimal value="False" />
+              <SelectFields>
+                <SelectField field="Operating_Income" selected="True" type="Double" size="8" />
+                <SelectField field="Cash_Flow" selected="True" type="Double" size="8" />
+                <SelectField field="*Unknown" selected="True" />
+              </SelectFields>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Company_ID" size="5" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Date" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Date" />
+                <Field name="Industry_Sector" size="13" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Total_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Total_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Net_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Revenue" source="Formula: ToNumber(REGEX_Replace([Revenue],'[$,]',''))" type="Double" />
+                <Field name="Operating_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Cash_Flow" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Debt_Equity_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Return_on_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Working_Capital_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Stock_Price_Close" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Volatility_Index" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="GDP_Growth_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Interest_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Inflation_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Financial_Risk_Label" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxSelect" />
+        </Node>
+        <Node ToolID="22">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.Filter.Filter">
+            <Position x="798" y="486" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Expression>!IsNull([Company_ID])</Expression>
+              <Mode>Custom</Mode>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>!IsNull([Company_ID])</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="True">
+              <RecordInfo>
+                <Field name="Company_ID" size="5" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Date" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Date" />
+                <Field name="Industry_Sector" size="13" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Total_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Total_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Net_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Revenue" source="Formula: ToNumber(REGEX_Replace([Revenue],'[$,]',''))" type="Double" />
+                <Field name="Operating_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Cash_Flow" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Debt_Equity_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Return_on_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Working_Capital_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Stock_Price_Close" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Volatility_Index" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="GDP_Growth_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Interest_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Inflation_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Financial_Risk_Label" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="False">
+              <RecordInfo>
+                <Field name="Company_ID" size="5" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Date" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Date" />
+                <Field name="Industry_Sector" size="13" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Total_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Total_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Current_Liabilities" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Net_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Revenue" source="Formula: ToNumber(REGEX_Replace([Revenue],'[$,]',''))" type="Double" />
+                <Field name="Operating_Income" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Cash_Flow" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Debt_Equity_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Return_on_Assets" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Working_Capital_Ratio" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Stock_Price_Close" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Volatility_Index" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="GDP_Growth_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Interest_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Inflation_Rate" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Double" />
+                <Field name="Financial_Risk_Label" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="Byte" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxFilter" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="42">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="1190" y="326" width="200" height="24" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption><![CDATA[Render & Output ]]></Caption>
+          <Style TextColor="#314c4a" FillColor="#ecf2f2" BorderColor="#314c4a" Transparency="25" Margin="100" />
+          <Disabled value="False" />
+          <Folded value="True" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <AnnotationText><![CDATA[Render & Output ]]></AnnotationText>
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="29">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerTable.PortfolioComposerTable">
+            <Position x="1290" y="450" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TableMode>Basic</TableMode>
+              <GroupingFields orderChanged="False">
+                <Field name="Industry_Sector" />
+              </GroupingFields>
+              <Width>100%</Width>
+              <ShowHeader value="True" />
+              <ShowBarGraph value="False" />
+              <TableFields orderChanged="False">
+                <Field name="Company_ID" selected="True" Alignment="Left" />
+                <Field name="Revenue" selected="True" Alignment="Right" />
+                <Field name="Operating_Income" selected="True" Alignment="Right" />
+                <Field name="OpMargin_Variance_vs_Sector" selected="True" Alignment="Right" />
+                <Field name="Variance_Status" selected="True" Alignment="Left" />
+                <Field name="Scenario_Operating_Income" selected="True" Alignment="Right" />
+                <Field name="Date" selected="False" />
+                <Field name="Industry_Sector" selected="False" />
+                <Field name="Total_Assets" selected="False" />
+                <Field name="Total_Liabilities" selected="False" />
+                <Field name="Current_Assets" selected="False" />
+                <Field name="Current_Liabilities" selected="False" />
+                <Field name="Net_Income" selected="False" />
+                <Field name="Cash_Flow" selected="False" />
+                <Field name="Debt_Equity_Ratio" selected="False" />
+                <Field name="Return_on_Assets" selected="False" />
+                <Field name="Working_Capital_Ratio" selected="False" />
+                <Field name="Stock_Price_Close" selected="False" />
+                <Field name="Volatility_Index" selected="False" />
+                <Field name="GDP_Growth_Rate" selected="False" />
+                <Field name="Interest_Rate" selected="False" />
+                <Field name="Inflation_Rate" selected="False" />
+                <Field name="Financial_Risk_Label" selected="False" />
+                <Field name="Operating_Margin_Pct" selected="False" />
+                <Field name="Net_Margin_Pct" selected="False" />
+                <Field name="Fiscal_Year" selected="False" />
+                <Field name="Fiscal_Quarter" selected="False" />
+                <Field name="Right_Industry_Sector" selected="False" />
+                <Field name="Right_Fiscal_Year" selected="False" />
+                <Field name="Sum_Revenue" selected="False" />
+                <Field name="Sum_Operating_Income" selected="False" />
+                <Field name="Avg_Operating_Margin_Pct" selected="False" />
+                <Field name="Avg_Debt_Equity_Ratio" selected="False" />
+                <Field name="Avg_GDP_Growth_Rate" selected="False" />
+                <Field name="Avg_Net_Margin_Pct" selected="False" />
+                <Field name="Sum_Net_Income" selected="False" />
+                <Field name="Avg_Inflation_Rate" selected="False" />
+                <Field name="Net_Margin_Variance" selected="False" />
+                <Field name="Revenue_Pct_Of_Sector" selected="False" />
+                <Field name="Scenario_Revenue" selected="False" />
+                <Field name="Scenario_Opex" selected="False" />
+                <Field name="Scenario_Vs_Actual_Income_Diff" selected="False" />
+                <Field name="*Unknown" selected="False" />
+              </TableFields>
+              <TableStyles>
+                <Style Name="Data" Font="Arial" Size="8" TextColor="#000000" BackColor="#ffffff" AltColor="#f0f0f0" RowGroup="1" />
+                <Style Name="Header" Font="Arial" Size="10" TextColor="#000000" BackColor="#dbdbdb" />
+                <Style Name="Borders" Width="1" DataColor="#000000" HeaderColor="#000000" RowBorder="None" BasicColBorder="Default (Use Per Column Setting)" />
+                <Style Name="Table" CellPadding="0" ColumnPadding="0" TableBorder="true" Width="1" BorderColor="#000000" />
+              </TableStyles>
+              <StyleRules>
+                <Rule Name="11fdca1d-7bc5-4666-9ae2-e969305beaf4">
+                  <RowRule value="True" />
+                  <HighPrecedence value="False" />
+                  <Field />
+                  <Test>Simple</Test>
+                  <ApplyTo>Data</ApplyTo>
+                  <SimpleVar>Variance_Status</SimpleVar>
+                  <SimpleOp>==</SimpleOp>
+                  <SimpleConst>Underperforming</SimpleConst>
+                  <Formula>1</Formula>
+                  <Style BackColor="#ff8080" />
+                  <PrettyName>Row Rule 1</PrettyName>
+                </Rule>
+              </StyleRules>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Basic Table</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="Industry_Sector" size="13" source="Formula: Trim([_CurrentField_],&quot; 	&quot;+CharFromInt(10)+CharFromInt(13)+CharFromInt(160))" type="String" />
+                <Field name="Table" size="1073741823" source="Report:Table:Basic:" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerTablePlugin" />
+        </Node>
+        <Node ToolID="31">
+          <GuiSettings Plugin="PortfolioPluginsGui.ComposerRender.PortfolioComposerRender">
+            <Position x="1386" y="462" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TempFileType />
+              <OutputFile>C:\Users\kscr0\OneDrive\Desktop\alteryx\Executive_FP&amp;A_Variance_Render.xlsx</OutputFile>
+              <BatchMode value="False" />
+              <DataField>Table</DataField>
+              <Separator>Continuous</Separator>
+              <EmbedDependencies value="False" />
+              <ShowHeader value="False" />
+              <ShowFooter value="False" />
+              <PdfCefOutput value="False" />
+              <PortraitMode value="True" />
+              <PaperType Width="612" Height="792" Left="36" Right="36" Top="36" Bottom="36" />
+              <DefaultStyles>
+                <Style Name="TextStyle" FontName="Arial" FontSize="14" Justify="Left" ForeColor="#000000" Locale="1033" />
+              </DefaultStyles>
+              <PNGResolution>1</PNGResolution>
+              <PNGLargerAction>squeeze</PNGLargerAction>
+              <PNGLargerThanPageChoice>warning</PNGLargerThanPageChoice>
+              <PNGTransparentBG value="False" />
+              <PNGBackColor value="#ffffff" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+            <Dependencies>
+              <Implicit />
+            </Dependencies>
+          </Properties>
+          <EngineSettings EngineDll="PortfolioPluginsEngine.dll" EngineDllEntryPoint="AlteryxPortfolioComposerRenderPlugin" />
+        </Node>
+        <Node ToolID="40">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.DbFileOutput.DbFileOutput">
+            <Position x="1290" y="546" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <File MaxRecords="" FileFormat="25">C:\Users\kscr0\OneDrive\Desktop\alteryx\Executive_FP&amp;A_Variance.xlsx|||Sheet1</File>
+              <Passwords />
+              <Disable>False</Disable>
+              <FormatSpecificOptions>
+                <MipTenantId />
+                <PreserveFormat>False</PreserveFormat>
+                <MipSensitivity />
+                <UNCLocal>False</UNCLocal>
+                <SkipFieldNames>False</SkipFieldNames>
+                <SuppressBlankFile>False</SuppressBlankFile>
+                <OutputOption>Overwrite</OutputOption>
+              </FormatSpecificOptions>
+              <MultiFile value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText>Executive_FP&amp;A_Variance.xlsx
+Query=Sheet1</DefaultAnnotationText>
+              <Left value="False" />
+            </Annotation>
+            <Dependencies>
+              <Implicit />
+            </Dependencies>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxDbFileOutput" />
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection>
+      <Origin ToolID="23" Connection="Output" />
+      <Destination ToolID="24" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="23" Connection="Output" />
+      <Destination ToolID="26" Connection="Left" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="24" Connection="Output" />
+      <Destination ToolID="26" Connection="Right" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="26" Connection="Join" />
+      <Destination ToolID="27" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="27" Connection="Output" />
+      <Destination ToolID="28" Connection="Input" />
+    </Connection>
+    <Connection name="#2">
+      <Origin ToolID="36" Connection="Action" />
+      <Destination ToolID="28" Connection="Action" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Output" />
+      <Destination ToolID="29" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="28" Connection="Output" />
+      <Destination ToolID="40" Connection="Input" />
+    </Connection>
+    <Connection name="#1">
+      <Origin ToolID="35" Connection="Question" />
+      <Destination ToolID="36" Connection="Question" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="16" Connection="Output" />
+      <Destination ToolID="18" Connection="Input2" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="18" Connection="Output26" />
+      <Destination ToolID="19" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="19" Connection="Output" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="21" Connection="Output" />
+      <Destination ToolID="25" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="25" Connection="Output" />
+      <Destination ToolID="22" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="22" Connection="True" />
+      <Destination ToolID="23" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="29" Connection="Output" />
+      <Destination ToolID="31" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <RunWithE2 value="True" />
+    <DefaultTZ value="Local" />
+    <PredictiveToolsCodePage value="1252" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <IsTemplate value="False" />
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Numeric Up Down (35)</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>Enterprise_FPA_Scenario_Engine_app</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
+      <WorkflowId value="2c0e72ad-d0ed-43a5-9698-0efc105fc161" />
+      <Telemetry>
+        <PreviousWorkflowId value="cef8d944-ce4d-450e-a21e-106a3bd69623" />
+        <OriginWorkflowId value="d7111e36-c828-4fa9-a9f9-369c6a7c8006" />
+      </Telemetry>
+      <PlatformWorkflowId value="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions>
+        <NoCondition>
+          <Type>NoCondition</Type>
+          <Description>(Always Run)</Description>
+          <True>
+            <Action>
+              <Type>UpdateValue</Type>
+              <Description />
+              <ToolId value="36" />
+              <Mode>Simple</Mode>
+              <Variable />
+              <Replace value="True" />
+              <ReplaceText>1.05</ReplaceText>
+              <Destination>28/FormulaFields/FormulaField[@field='Scenario_Revenue']/@expression</Destination>
+            </Action>
+          </True>
+        </NoCondition>
+      </Actions>
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (32)</Name>
+          <ToolId value="32" />
+          <Questions>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>Enter Revenue Growth Scenario%</Description>
+              <Name>Numeric Up Down (35)</Name>
+              <ToolId value="35" />
+              <Minimum value="0" />
+              <Maximum value="100" />
+              <Increment value="1" />
+              <Default value="50" />
+              <Decimals value="0" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Wizard</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="18" Selected="True" />
+        <Tool ToolId="31" Selected="True" />
+        <Tool ToolId="40" Selected="True" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>
